@@ -1,0 +1,14 @@
+body {
+  padding-top: 50px;
+}
+.navbar {
+  background-color: #333;
+}
+.dashboard {
+  padding: 40px 15px;
+}
+.progress {
+  height: 26px;
+  line-height: 24px;
+  font-weight: bold;
+}
