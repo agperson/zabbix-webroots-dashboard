@@ -1,5 +1,8 @@
 <?php
   $service = $_GET['service'];
+  $port    = $_GET['port'];
+  $hostids = $_GET['hosts'];
+  print_r($_GET);
   if ($service == "adsys-aurora") {
 ?>
 <table class="table">
@@ -221,10 +224,11 @@
   </tr>
 </table>
     <script type="text/javascript">
-      $('.line').peity('line')
-      $('.bar').peity('bar')
-      $('.pie').peity('pie')
+      $('.line').peity('line');
+      $('.bar').peity('bar');
+      $('.pie').peity('pie');
+      $('.w-tooltip').tooltip();
     </script>
 <?php } else { ?>
-<p>This is not adsys-aurora, it is <?php print $service; ?></p>
+<p>This is not adsys-aurora, it is <?php print $service; ?> with hostids <?php print $hostids ?> on port <?php print $port ?></p>
 <?php } ?>
