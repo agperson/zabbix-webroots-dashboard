@@ -126,47 +126,36 @@
     </div>
 
     <div class="container">
-        <!-- Listing of all hosts organized by environment -->
-        <!--
-        <div class="progress">
-          <div class="progress-bar progress-bar-danger w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_prd ?> nodes" style="width: <?php print round(($host_prd/$host_total)*100) ?>%">production</div>
-          <div class="progress-bar progress-bar-warning w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_stg ?> nodes" style="width: <?php print round(($host_stg/$host_total)*100) ?>%">staging</div>
-          <div class="progress-bar progress-bar-info w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_tst ?> nodes" style="width: <?php print round(($host_tst/$host_total)*100) ?>%">testing</div>
-          <div class="progress-bar progress-bar-success w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_dev ?> nodes" style="width: <?php print round(($host_dev/$host_total)*100) ?>%">development</div>
-          <div class="progress-bar w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_adm ?> nodes" style="width: <?php print round(($host_adm/$host_total)*100) ?>%">admin/utility</div>
-        </div>
--->
-
       <div class="dashboard">
 
         <!-- Statistics -->
         <div class="row stats">
-          <div class="col-md-4">
+          <div class="col-md-4 col-xs-12">
             <h2>Select a service<br /><small>to dynamically load real-time details and statistics.</small></h2>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-6">
             <div class="panel panel-danger">
               <div class="panel-heading"><h1><?php print $host_prd ?></h1></div>
               <div class="panel-body">production nodes</div>
             </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-6">
             <div class="panel panel-warning">
               <div class="panel-heading"><h1><?php print $host_stg ?></h1></div>
               <div class="panel-body">staging nodes</div>
             </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-6">
             <div class="panel panel-info">
               <div class="panel-heading"><h1><?php print $host_tst ?></h1></div>
               <div class="panel-body">testing nodes</div>
             </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2 col-xs-6">
             <div class="panel panel-success">
               <div class="panel-heading"><h1><?php print $host_dev ?></h1></div>
               <div class="panel-body">development nodes</div>

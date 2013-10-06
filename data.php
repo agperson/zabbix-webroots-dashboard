@@ -91,6 +91,7 @@
     $item_hist[$hist_val->itemid]['data'][] = $hist_val->value;
   }
 ?>
+<div class="table-responsive">
 <table class="table">
   <tr>
     <th>Environment</th>
@@ -98,7 +99,7 @@
     <th>Load</th>
     <th>RAM</th>
     <th>Disk</th>
-    <th width=80%>Links</th>
+    <th>Links</th>
   </tr>
 <?php
   $env_abbr_list = array('prd', 'stg', 'tst', 'dev', 'adm');
@@ -159,7 +160,7 @@
       </a>
       &nbsp;
       <a type="button" class="btn btn-default btn-xs" href="https://zabbix.huit.harvard.edu/zabbix/latest.php?hostid=<?php print $host['hostid'] ?>">
-        <span class="glyphicon glyphicon-dashboard"></span> Zabbix Host View
+        <span class="glyphicon glyphicon-dashboard"></span> Host Data
       </a>
       &nbsp;
       <button type="button" class="btn btn-default btn-xs w-popover" data-container="body" data-toggle="popover" data-placement="auto" data-content="<?php print $host['host'] ?>" data-original-title="" title="">
@@ -169,6 +170,7 @@
   </tr>
 <?php }} ?>
 </table>
+</div>
 <script type="text/javascript">
   $('.line').peity('line');
   $('.bar').peity('bar');
