@@ -121,15 +121,30 @@
     </div>
 
     <div class="container">
-      <div class="dashboard">
-
         <!-- Listing of all hosts organized by environment -->
+        <!--
         <div class="progress">
           <div class="progress-bar progress-bar-danger w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_prd ?> nodes" style="width: <?php print round(($host_prd/$host_total)*100) ?>%">production</div>
           <div class="progress-bar progress-bar-warning w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_stg ?> nodes" style="width: <?php print round(($host_stg/$host_total)*100) ?>%">staging</div>
           <div class="progress-bar progress-bar-info w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_tst ?> nodes" style="width: <?php print round(($host_tst/$host_total)*100) ?>%">testing</div>
           <div class="progress-bar progress-bar-success w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_dev ?> nodes" style="width: <?php print round(($host_dev/$host_total)*100) ?>%">development</div>
           <div class="progress-bar w-tooltip" data-toggle="tooltip" title="" data-original-title="<?php print $host_adm ?> nodes" style="width: <?php print round(($host_adm/$host_total)*100) ?>%">admin/utility</div>
+        </div>
+-->
+
+      <div class="dashboard">
+
+        <!-- Statistics -->
+        <div class="row stats">
+          <div class="col-md-4">
+            <h1><span class="label label-default"><?php print count($service_list) ?></span> services</h1>
+          </div>
+          <div class="col-md-4">
+            <h1><span class="label label-default"><?php print count($hosts) ?></span> nodes</h1>
+          </div>
+          <div class="col-md-4">
+            <h1><span class="label label-default">∞</span> possibilities</h1>
+          </div>
         </div>
 
         <!-- Accordian panel for each service -->

@@ -146,22 +146,17 @@
       print "   </td>\n";
 ?>
     <td>
-      <button type="button" class="btn btn-default btn-xs">
-          <span class="glyphicon glyphicon-plus-sign"></span> Health Check
-      </button>
+      <a type="button" class="btn btn-default btn-xs" href="http://<?php print $host['host'] . ":" . $port ?>">
+        <span class="glyphicon glyphicon-plus-sign"></span> Health Check
+      </a>
       &nbsp;
-      <button type="button" class="btn btn-default btn-xs">
-          <span class="glyphicon glyphicon-dashboard"></span> Zabbix
-      </button>
+      <a type="button" class="btn btn-default btn-xs" href="https://zabbix.huit.harvard.edu/zabbix/latest.php?hostid=<?php print $host['hostid'] ?>">
+        <span class="glyphicon glyphicon-dashboard"></span> Zabbix
+      </a>
       &nbsp;
-      <div class="btn-group">
-        <button type="button" class="btn btn-default btn-xs" style="background-color: #eee; color: #000" disabled="disabled">
-          <span class="glyphicon glyphicon-transfer"></span> <strong>SSH</strong>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" disabled="disabled">
-          <span>adsysprd101.webroots.fas.harvard.edu</span>
-        </button>
-      </div>
+      <button type="button" class="btn btn-default btn-xs w-popover" data-container="body" data-toggle="popover" data-placement="auto" data-content="<?php print $host['host'] ?>" data-original-title="" title="">
+        <span class="glyphicon glyphicon-transfer"></span> SSH
+      </button>
     </td>
   </tr>
 <?php }} ?>
@@ -171,4 +166,5 @@
   $('.bar').peity('bar');
   $('.pie').peity('pie');
   $('.w-tooltip').tooltip();
+  $('.w-popover').popover();
 </script>
