@@ -68,7 +68,7 @@
     'history'   => 0,
     'sortfield' => 'clock',
     'sortorder' => 'DESC',
-    'time_from' => time()-659, # When set to 600 we sometimes missed the 10th value
+    'time_from' => time()-959, # When set to 900 we sometimes missed the 10th value
     'time_till' => time(),
     'output'    => 'extend',
     ));
@@ -101,21 +101,29 @@
     <th width=80%>Links</th>
   </tr>
 <?php
-  $prev_env = "";
-  foreach($envs as $env => $hosts) {
-    switch($env) {
-      case "prd": $label = "danger";  $env_name = "production";  break;
-      case "stg": $label = "warning"; $env_name = "staging";     break;
-      case "tst": $label = "info";    $env_name = "testing";     break;
-      case "dev": $label = "success"; $env_name = "development"; break;
-      default: break;
+  $env_abbr_list = array('prd', 'stg', 'tst', 'dev', 'adm');
+  $prev_env_abbr = "";
+  # Explicit order in which we want to display envs
+  foreach($env_abbr_list as $env_abbr) {
+    if(array_key_exists($env_abbr, $envs)) {
+      $hosts = $envs[$env_abbr];
+
+      switch($env_abbr) {
+        case "prd": $label = "danger";  $env_name = "production";  break;
+        case "stg": $label = "warning"; $env_name = "staging";     break;
+        case "tst": $label = "info";    $env_name = "testing";     break;
+        case "dev": $label = "success"; $env_name = "development"; break;
+        default: break;
+      }
+    } else {
+      continue;
     }
 
     foreach($hosts as $host) {
       print " <tr>\n";
-      if($prev_env != $env) {
+      if($prev_env_abbr != $env_abbr) {
         print "   <td rowspan=\"" . count($hosts) . "\"><span class=\"label label-${label}\">${env_name}</span></td>\n";
-        $prev_env = $env;
+        $prev_env_abbr = $env_abbr;
       }
       print "   <td>" . $host['name'] . "</td>\n";
 
@@ -129,16 +137,16 @@
         }
       });
 
-      print '   <td><span class="w-tooltip" data-toggle="tooltip" title="" data-original-title="current: ' . $host_data['system.cpu.load[,avg1]'][9] . '" href="#">' . "\n";
+      print '   <td><span class="w-tooltip" data-toggle="tooltip" title="" data-original-title="current: ' . $host_data['system.cpu.load[,avg1]'][14] . '" href="#">' . "\n";
       print '     <span class="line" data-width="40" data-min="0" data-max="4">' . implode(',', $host_data['system.cpu.load[,avg1]']) . '</span>' . "\n    </td>\n";
-      print '   <td><span class="w-tooltip" data-toggle="tooltip" title="" data-original-title="current: ' . $host_data['vm.memory.size[pused]'][9] . '%" href="#">' . "\n";
+      print '   <td><span class="w-tooltip" data-toggle="tooltip" title="" data-original-title="current: ' . $host_data['vm.memory.size[pused]'][14] . '%" href="#">' . "\n";
       print '     <span class="bar" data-width="40" data-min="0" data-max="100">' . implode(',', $host_data['vm.memory.size[pused]']) . '</span>' . "\n   </td>\n";
       print '   <td nowrap="nowrap">' . "\n";
       # Find all array keys that are filesystems
       foreach(array_intersect_key($host_data, array_flip(preg_grep('/^vfs.fs.size/', array_keys($host_data)))) as $fs => $data) {
         preg_match('/^vfs.fs.size\[(.*),pfree\]/', $fs, $matches);
         $fs_name = $matches[1];
-        $fs_used = (100 - $host_data[$fs][9]);
+        $fs_used = (100 - $host_data[$fs][14]);
         print "     <span class=\"w-tooltip\" data-toggle=\"tooltip\" title=\"\" data-original-title=\"${fs_name} (${fs_used}%)\" href=\"#\">\n";
         print "       <span class=\"pie\">${fs_used}/100</span>\n";
         print "     </span>\n";
@@ -146,12 +154,12 @@
       print "   </td>\n";
 ?>
     <td>
-      <a type="button" class="btn btn-default btn-xs" href="http://<?php print $host['host'] . ":" . $port ?>">
+      <a type="button" class="btn btn-default btn-xs" href="http://<?php print $host['host'] . ":" . $port ?>?full">
         <span class="glyphicon glyphicon-plus-sign"></span> Health Check
       </a>
       &nbsp;
       <a type="button" class="btn btn-default btn-xs" href="https://zabbix.huit.harvard.edu/zabbix/latest.php?hostid=<?php print $host['hostid'] ?>">
-        <span class="glyphicon glyphicon-dashboard"></span> Zabbix
+        <span class="glyphicon glyphicon-dashboard"></span> Zabbix Host View
       </a>
       &nbsp;
       <button type="button" class="btn btn-default btn-xs w-popover" data-container="body" data-toggle="popover" data-placement="auto" data-content="<?php print $host['host'] ?>" data-original-title="" title="">

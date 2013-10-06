@@ -1,11 +1,24 @@
 body {
-  padding-top: 5px;
+  padding-top: 30px;
 }
 .navbar {
   background-color: #333;
 }
-.stats {
-  margin-bottom: 15px;
+.stats h1 {
+  margin: 0;
+  padding: 0;
+}
+.stats .col-md-4 h2, .stats .col-md-4 h2 small {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: .8;
+}
+.stats .col-md-2 {
+  text-align: center;
+  padding-left: 5px;
+}
+.stats .panel-heading, .stats .panel-body {
+  padding: 5px;
 }
 .dashboard {
   padding: 40px 15px;

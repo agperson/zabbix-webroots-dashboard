@@ -89,7 +89,10 @@
         $( '#' + serviceName ).on('shown.bs.collapse', function () {
           $.get( 'data.php?service=' + serviceName + '&port=' + servicePort + '&hosts=' + serviceHosts, function( data ) {
             $( '#' + serviceName + '-data' ).html( data );
-            } );
+            } )
+          .fail(function() {
+            $( '#' + serviceName + '-data' ).html( '<div class="alert alert-danger"><strong>Error!</strong> Unable to retrieve node data!</div>' );
+          })
         })
         $( '#' + serviceName ).on('show.bs.collapse', function () {
           $( '#' + serviceName + '-data' ).html( '<div style="text-align: center"><img src="img/ajax-loader.gif" /></div>' );
@@ -109,12 +112,14 @@
           <span class="navbar-brand">Webroots Dashboard</span>
         </div>
         <div class="collapse navbar-collapse">
+          <!--
           <ul class="nav navbar-nav">
             <li class="active"><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Services</a></li>
             <li><a href="#nodes"><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Nodes</a></li>
           </ul>
+          -->
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="https://zabbix.huit.harvard.edu/zabbix/"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp;Zabbix</a></li>
+            <li><a href="https://zabbix.huit.harvard.edu/zabbix/"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp;Go to Zabbix</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -137,13 +142,35 @@
         <!-- Statistics -->
         <div class="row stats">
           <div class="col-md-4">
-            <h1><span class="label label-default"><?php print count($service_list) ?></span> services</h1>
+            <h2>Select a service<br /><small>to dynamically load real-time details and statistics.</small></h2>
           </div>
-          <div class="col-md-4">
-            <h1><span class="label label-default"><?php print count($hosts) ?></span> nodes</h1>
+
+          <div class="col-md-2">
+            <div class="panel panel-danger">
+              <div class="panel-heading"><h1><?php print $host_prd ?></h1></div>
+              <div class="panel-body">production nodes</div>
+            </div>
           </div>
-          <div class="col-md-4">
-            <h1><span class="label label-default">∞</span> possibilities</h1>
+
+          <div class="col-md-2">
+            <div class="panel panel-warning">
+              <div class="panel-heading"><h1><?php print $host_stg ?></h1></div>
+              <div class="panel-body">staging nodes</div>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="panel panel-info">
+              <div class="panel-heading"><h1><?php print $host_tst ?></h1></div>
+              <div class="panel-body">testing nodes</div>
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <div class="panel panel-success">
+              <div class="panel-heading"><h1><?php print $host_dev ?></h1></div>
+              <div class="panel-body">development nodes</div>
+            </div>
           </div>
         </div>
 
@@ -154,12 +181,12 @@
             <div class="panel-heading">
               <h4 class="panel-title">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#<?php print $service_name ?>"><?php print $service_name ?></a>
-                &nbsp;<span class="badge pull-right"><?php print count($service_data['hosts']) ?></span>
+                &nbsp;<span class="badge pull-right"><?php print count($service_data['hosts']) ?> </span>
               </h4>
             </div><!-- /.panel-heading -->
             <div id="<?php print $service_name ?>" class="panel-collapse collapse">
               <div class="panel-body">
-                <h4>Overview</h4>
+                <h4>Service Overview</h4>
                 <dl class="dl-horizontal">
                   <dt>Service Owner</dt><dd>Unknown</dd>
                   <dt>SLA Classification</dt><dd>Unknown</dd>
