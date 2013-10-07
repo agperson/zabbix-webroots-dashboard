@@ -1,0 +1,7 @@
+{
+  "require": {
+    "twbs/bootstrap": "3.0.*",
+    "twig/twig": "1.13.*",
+    "frameworks/jquery": "2.0.3"
+  }
+}

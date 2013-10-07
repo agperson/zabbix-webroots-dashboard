@@ -10,4 +10,4 @@ Data is collected by querying Zabbix for items in a specific "application" acros
 the application is running, and then querying for live monitoring data using the Zabbix history API.  Peity sparklines
 display the data in a pretty way.
 
-![screenshot](screenshot.png "Screenshot")
+![screenshot](lib/screenshot.png "Screenshot")

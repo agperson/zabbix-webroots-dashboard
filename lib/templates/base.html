@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+    <title>Webroots Dashboard - {{ page_title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- Custom styles for this template -->
+    <link href="lib/css/dashboard.css" rel="stylesheet">
+    <!-- Bootstrap and JQuery JavaScript -->
+    <script src="vendor/frameworks/jquery/jquery.min.js"></script>
+    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Peity for sparklines -->
+    <script src="lib/peity/jquery.peity.min.js"></script>
+    {% endblock %}
+  </head>
+  <body>
+    {% include "header.html" %}
+
+    <div class="container">
+      <div class="dashboard">
+        {% block content %}
+          {% include "stats.html" %}
+        {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

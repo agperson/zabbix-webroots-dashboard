@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% set page_name  = "nodes" %}
+{% set page_title = "Nodes" %}
+{% set help_text  = "Select a node" %}
+{% set help_subtext = "to dynamically load statistics and deployed services" %}
+{% block head %}
+  {{ parent() }}
+  <!-- Enable tooltips -->
+  <script type="text/javascript">
+    $('.w-tooltip').tooltip();
+  </script>
+
+  <!-- Hook to load data when accordian folds are opened -->
+  <script type="text/javascript">
+    function node_fetch(hostName, hostId) {
+      $( '#' + hostName ).on('shown.bs.collapse', function () {
+        $.get( 'data.php?type=host&hosts=' + hostId, function( data ) {
+          $( '#' + hostName + '-data' ).html( data );
+          } )
+        .fail(function() {
+          $( '#' + hostName + '-data' ).html( '<div class="alert alert-danger"><strong>Error!</strong> Unable to retrieve node data!</div>' );
+        })
+      })
+      $( '#' + hostName ).on('show.bs.collapse', function () {
+        $( '#' + hostName + '-data' ).html( '<div style="text-align: center"><img src="lib/img/ajax-loader.gif" /></div>' );
+      } );
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+  {{ parent() }}
+  <!-- Accordian panel for each host -->
+    <div class="panel-group" id="accordion">
+      {% for host in host_list %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{ host.name }}">{{ host.name }}</a>
+            &nbsp;<span class="badge pull-right">{{ host.inventory.webroots_count }} services</span>
+          </h4>
+        </div><!-- /.panel-heading -->
+        <div id="{{ host.name }}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <h4>Node Overview</h4>
+            <dl class="dl-horizontal">
+              <dt>FQDN</dt><dd>{{ host.host ?: 'Unknown' }}</dd>
+              <dt>Environment</dt><dd><span class="label label-{{ host.inventory.webroots_env_label }}">{{ host.inventory.webroots_env }}</span></dd>
+              <dt>Location</dt><dd>{{ host.inventory.location ?: 'Unknown' }}</dd>
+              <dt>OS</dt><dd>{{ host.inventory.os ?: 'Unknown' }}</dd>
+              <dt>Security Groups</dt><dd>{{ host.inventory.contact ?: 'Unknown' }}</dd>
+            </dl>
+            <h4>Deployed Services</h4>
+            <div id="{{ host.name }}-data"></div>
+            <script type="text/javascript">node_fetch('{{ host.name }}', '{{ host.hostid }}');</script>
+          </div><!-- /.panel-body -->
+        </div><!-- /.panel-collapse -->
+      </div><!-- /.panel -->
+    <?php } ?>
+    {% endfor %}
+  </div><!-- /.panel-group -->
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% set page_name  = "services" %}
+{% set page_title = "Services" %}
+{% set help_text  = "Select a service" %}
+{% set help_subtext = "to dynamically load real-time details and statistics" %}
+{% block head %}
+  {{ parent() }}
+  <!-- Enable tooltips -->
+  <script type="text/javascript">
+    $('.w-tooltip').tooltip();
+  </script>
+
+  <!-- Hook to load data when accordian folds are opened -->
+  <script type="text/javascript">
+    function service_fetch(serviceName, servicePort, serviceHosts) {
+      $( '#' + serviceName ).on('shown.bs.collapse', function () {
+        $.get( 'data.php?type=service&service=' + serviceName + '&port=' + servicePort + '&hosts=' + serviceHosts, function( data ) {
+          $( '#' + serviceName + '-data' ).html( data );
+          } )
+        .fail(function() {
+          $( '#' + serviceName + '-data' ).html( '<div class="alert alert-danger"><strong>Error!</strong> Unable to retrieve node data!</div>' );
+        })
+      })
+      $( '#' + serviceName ).on('show.bs.collapse', function () {
+        $( '#' + serviceName + '-data' ).html( '<div style="text-align: center"><img src="lib/img/ajax-loader.gif" /></div>' );
+      } );
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+  {{ parent() }}
+  <!-- Accordian panel for each service -->
+    <div class="panel-group" id="accordion">
+      {% for service_name, service_data in service_list %}
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{ service_name }}">{{ service_name }}</a>
+            &nbsp;<span class="badge pull-right">{{ service_data.host_count }} nodes</span>
+          </h4>
+        </div><!-- /.panel-heading -->
+        <div id="{{ service_name }}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <h4>Service Overview</h4>
+            <dl class="dl-horizontal">
+              <dt>Service Owner</dt><dd>{{ service_data.owner ?: 'Unknown' }}</dd>
+              <dt>SLA Classification</dt><dd>{{ service_data.sla ?: 'Unknown' }}</dd>
+              <dt>Public URL</dt><dd>{{ service_data.url ?: 'Unknown' }}</dd>
+            </dl>
+            <h4>Deployed Nodes</h4>
+            <div id="{{ service_name }}-data"></div>
+            <script type="text/javascript">service_fetch('{{ service_name }}', '{{ service_data.port }}','{{ service_data.host_id_list }}');</script>
+          </div><!-- /.panel-body -->
+        </div><!-- /.panel-collapse -->
+      </div><!-- /.panel -->
+    <?php } ?>
+    {% endfor %}
+  </div><!-- /.panel-group -->
+{% endblock %}

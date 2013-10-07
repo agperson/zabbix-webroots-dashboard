@@ -1,0 +1,21 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">Webroots Dashboard</span>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li{% if page_name == 'services' %} class="active"{% endif %}><a href="services.php"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Services</a></li>
+        <li{% if page_name == 'nodes' %} class="active"{% endif %}><a href="nodes.php"><span class="glyphicon glyphicon-th"></span>&nbsp;&nbsp;Nodes</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://zabbix.huit.harvard.edu/zabbix/"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp;Go to Zabbix</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>

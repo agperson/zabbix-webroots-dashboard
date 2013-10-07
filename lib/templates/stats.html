@@ -1,0 +1,34 @@
+<!-- Statistics -->
+<div class="row stats">
+  <div class="col-md-4 col-xs-12">
+    <h2>{{ help_text }}<br /><small>{{ help_subtext }}</small></h2>
+  </div>
+
+  <div class="col-md-2 col-xs-6">
+    <div class="panel panel-danger">
+      <div class="panel-heading"><h1>{{ host_counts.prd }}</h1></div>
+      <div class="panel-body">production nodes</div>
+    </div>
+  </div>
+
+  <div class="col-md-2 col-xs-6">
+    <div class="panel panel-warning">
+      <div class="panel-heading"><h1>{{ host_counts.stg }}</h1></div>
+      <div class="panel-body">staging nodes</div>
+    </div>
+  </div>
+
+  <div class="col-md-2 col-xs-6">
+    <div class="panel panel-info">
+      <div class="panel-heading"><h1>{{ host_counts.tst }}</h1></div>
+      <div class="panel-body">testing nodes</div>
+    </div>
+  </div>
+
+  <div class="col-md-2 col-xs-6">
+    <div class="panel panel-success">
+      <div class="panel-heading"><h1>{{ host_counts.dev }}</h1></div>
+      <div class="panel-body">development nodes</div>
+    </div>
+  </div>
+</div>
