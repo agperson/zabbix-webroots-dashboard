@@ -29,6 +29,7 @@ $hosts = $api->hostGet(array(
 # Determine host counts for progress bar and calculate number of webroots
 $host_counts = array();
 $host_ids = array();
+$host_list = array();
 foreach($hosts as $host) {
   $host_env   = substr($host->name,-6,3);
   if(!array_key_exists($host_env, $host_counts)) {
@@ -42,13 +43,19 @@ foreach($hosts as $host) {
     case "stg": $label = "warning"; $env_name = "staging";     break;
     case "tst": $label = "info";    $env_name = "testing";     break;
     case "dev": $label = "success"; $env_name = "development"; break;
+    case "adm":
+    case "utl": $label = "primary"; $env_name = "admin/utility"; break;
     default: break;
   }
   $host->inventory->webroots_count = count(explode(",", $host->inventory->software));
   $host->inventory->webroots_env = $env_name;
   $host->inventory->webroots_env_label = $label;
+  $host_list[$host->name] = $host;
 }
 
+# Sort the hosts by name alphabetically
+ksort($host_list);
+
 # Output the page
-echo $twig->render('nodes.html', array('host_counts' => $host_counts, 'host_list' => $hosts));
+echo $twig->render('nodes.html', array('host_counts' => $host_counts, 'host_list' => $host_list));
 ?>
