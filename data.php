@@ -160,7 +160,7 @@
       print "   </td>\n";
 ?>
     <td>
-      <a type="button" class="btn btn-default btn-xs" href="http://<?php print $host['host'] . ":" . $port ?>?full">
+      <a type="button" class="btn btn-default btn-xs" href="http://<?php print $host['host'] . ":" . $port ?>/server-health?full">
         <span class="glyphicon glyphicon-plus-sign"></span> Health Check
       </a>
       &nbsp;
