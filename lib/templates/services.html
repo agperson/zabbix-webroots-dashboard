@@ -26,6 +26,26 @@
       } );
     }
   </script>
+
+  <!-- CSS Overrides for badge colors -->
+  <style type="text/css">
+    .badge {
+      color: #888;
+      background-color: #ddd;
+    }
+    .badge-danger {
+      color: #b94a48;
+    }
+    .badge-warning {
+      color: #c09853;
+    }
+    .badge-info {
+      color: #3a87ad;
+    }
+    .badge-success {
+      color: #468847;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -37,7 +57,12 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{ service_name }}">{{ service_name }}</a>
-            &nbsp;<span class="badge pull-right">{{ service_data.host_count }} nodes</span>
+            <span class="badge pull-right">
+              <span class="badge-success">&nbsp;{{ service_data.host_env.dev|default("0") }}&nbsp;</span>&bull;
+              <span class="badge-info">{{ service_data.host_env.tst|default("0") }}&nbsp;</span>&bull;
+              <span class="badge-warning">{{ service_data.host_env.stg|default("0") }}&nbsp;</span>&bull;
+              <span class="badge-danger">{{ service_data.host_env.prd|default("0") }}&nbsp;</span>
+            </span>
           </h4>
         </div><!-- /.panel-heading -->
         <div id="{{ service_name }}" class="panel-collapse collapse">
