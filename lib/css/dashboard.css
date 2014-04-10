@@ -23,3 +23,6 @@ body {
 .dashboard {
   padding: 40px 15px;
 }
+a:hover {
+  cursor: pointer;
+}

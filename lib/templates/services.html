@@ -30,13 +30,13 @@
 
 {% block content %}
   {{ parent() }}
-  <!-- Accordian panel for each service -->
-    <div class="panel-group" id="accordion">
+  <!-- Panel for each service -->
+    <div class="panel-group">
       {% for service_name, service_data in service_list %}
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4 class="panel-title">
-            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#{{ service_name }}">{{ service_name }}</a>
+            <a data-toggle="collapse" data-target="#{{ service_name }}">{{ service_name }}</a>
             &nbsp;<span class="badge pull-right">{{ service_data.host_count }} nodes</span>
           </h4>
         </div><!-- /.panel-heading -->

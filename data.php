@@ -3,7 +3,7 @@
   require 'lib/php/zabbix-connect.php';
 
   # Get inputs and filter them
-  $service  = filter_input(INPUT_GET, 'type',    FILTER_SANITIZE_STRING);
+  $type     = filter_input(INPUT_GET, 'type',    FILTER_SANITIZE_STRING);
   $service  = filter_input(INPUT_GET, 'service', FILTER_SANITIZE_STRING);
   $port     = filter_input(INPUT_GET, 'port',    FILTER_SANITIZE_NUMBER_INT);
   $host_ids = filter_input(INPUT_GET, 'hosts',   FILTER_SANITIZE_NUMBER_FLOAT, array('flags' => FILTER_FLAG_ALLOW_THOUSAND));
@@ -23,7 +23,7 @@
       exit;
     }
   } else {
-    print "<strong>Invalid request type.</strong>";
+    print "<strong>Invalid request type</strong> ($type $service $port $host_ids).";
     exit;
   }
 
