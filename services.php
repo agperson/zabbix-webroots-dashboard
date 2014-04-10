@@ -28,8 +28,11 @@ $hosts = $api->hostGet(array(
 # Determine host counts for progress bar and assemble a list of hostids
 $host_counts = array();
 $host_ids = array();
+# This structure is for per-service host counts
+$host_env_mapping = array();
 foreach($hosts as $host) {
   $host_env   = substr($host->name,-6,3);
+  $host_env_mapping[$host->hostid] = $host_env;
   if(!array_key_exists($host_env, $host_counts)) {
     $host_counts[$host_env] = 1;
   } else {
@@ -65,6 +68,11 @@ foreach($services as $service) {
 foreach ($service_list as $service_name => $service_data) {
   $service_list[$service_name]['host_count'] = count($service_data['hosts']);
   $service_list[$service_name]['host_id_list'] = join($service_data['hosts'], ",");
+
+  # Place hosts into environments
+  foreach($service_data['hosts'] as $host) {
+    $service_list[$service_name]['host_env'][$host_env_mapping[$host]]++;
+  }
 }
 
 # Alphebetize the service list
