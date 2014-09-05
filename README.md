@@ -14,10 +14,10 @@ display the data in a pretty way.
 
 Installing
 ----------
-# Clone this repository into a web-accessible location using a webserver that supports PHP
-# Create an account on your Zabbix server with API access enabled and read privileges to the hosts you want in the dashboard.
-# Copy `lib/php/config.php.example` to `lib/php/config.php` and customize it with your Zabbix connection details
-# Install dependencies using PHP Composer
+- Clone this repository into a web-accessible location using a webserver that supports PHP
+- Create an account on your Zabbix server with API access enabled and read privileges to the hosts you want in the dashboard.
+- Copy `lib/php/config.php.example` to `lib/php/config.php` and customize it with your Zabbix connection details
+- Install dependencies using PHP Composer
 ```bash
 cd zabbix-webroots-dashboard
 curl -s http://getcomposer.org/installer | php
